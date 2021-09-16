@@ -1,3 +1,5 @@
+import exp from "constants";
+import { create } from "domain";
 import { newArrayIntQueue } from "../src/arrayqueue";
 import { newLinkedListIntQueue } from "../src/linkedlistqueue.js";
 
@@ -31,5 +33,71 @@ describe("queue length", ()=> {
         for (let i =0;i<11;i++)
             queue.enqueue(i)
         expect(queue.size()).toBe(11)
+    })
+})
+
+
+describe("clear queue", ()=> {
+    test("no entry", ()=>{
+        const queue = createQueue()
+        queue.clear()
+        expect(queue.isEmpty())
+    })
+
+    test("2 entry", ()=>{
+        const queue = createQueue()
+        queue.enqueue(1)
+        queue.enqueue(2)
+        queue.clear()
+        expect(queue.isEmpty())
+    })
+})
+
+describe("entered number can be dequeued in correct order", ()=>{
+    test("1 entry", ()=>{
+        const queue = createQueue()
+        queue.enqueue(5)
+        expect(queue.dequeue()).toBe(5)
+    })
+
+    test("11 entry", ()=>{
+        const queue = createQueue()
+        for (let i =0;i<11;i++)
+            queue.enqueue(i)
+        for (let i =0;i<11;i++)
+            expect(queue.dequeue()).toBe(i)
+    })
+})
+
+describe("queue isempty", ()=> {
+    test("no entry", ()=>{
+        const queue = createQueue()
+        expect(queue.isEmpty()).toBe(true)
+    })
+
+    test("1 entry", ()=>{
+        const queue = createQueue()
+        queue.enqueue(2)
+        expect(queue.isEmpty()).toBe(false)
+    })
+})
+
+describe("peek queue", ()=>{
+    test("no entry", ()=>{
+        const queue = createQueue()
+        expect(queue.peek()).toBe(null)
+    })
+
+    test('1 entry', ()=>{
+        const queue = createQueue()
+        queue.enqueue(3)
+        expect(queue.peek()).toBe(3)
+    })
+
+    test('3 entry', ()=>{
+        const queue = createQueue()
+        for (let i =0;i<3;i++)
+            queue.enqueue(i)
+        expect(queue.peek()).toBe(2)
     })
 })
